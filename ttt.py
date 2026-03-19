@@ -1,7 +1,8 @@
 current_player = 0
 game_status = []
 symbols = [" ", "X", "O"]
-win_conditions = []
+win_conditions = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
+winner = "no player"
 
 def changeStatus(pos, player_number):
     if game_status[pos] == 0:
@@ -10,7 +11,8 @@ def changeStatus(pos, player_number):
     return False
 
 def checkStatus():
-    pass
+    for win in win_conditions:
+        if  
 
 def getGameInput():
     change_happened = False
@@ -46,7 +48,8 @@ def showGameBoard():
         print("Error - game_status has not enough values to show.")
 
 def showGameResult():
-    pass
+    global winner
+    print("Game has ended," + winner + " wins!")   
 
 def switchCurrentPlayer():
     global current_player
