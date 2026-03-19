@@ -2,8 +2,25 @@ current_player = 0
 game_status = []
 symbols = [" ", "X", "O"]
 win_conditions = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
-
+player_amount = 0 
 winner = "no player"
+
+
+def algorithm_move():
+    algorithm_player_id = 2
+    for condition in win_conditions:
+        if game_status[condition[0]] == game_status[condition[1]] != 0 and game_status[condition[2]] == 0:
+            changeStatus(condition[2], 2)
+            return
+        if game_status[condition[1]] == game_status[condition[2]] != 0 and game_status[condition[0]] == 0:
+            changeStatus(condition[0], 2)
+            return
+        if game_status[condition[0]] == game_status[condition[2]] != 0 and game_status[condition[1]] == 0:
+            changeStatus(condition[1], 2)
+            return
+    for i in range(9):
+        if changeStatus(i, 2):
+            return
 
 def changeStatus(pos, player_number):
     if game_status[pos] == 0:
@@ -36,7 +53,7 @@ def checkDraw():
 def getGameInput():
     change_happened = False
     while change_happened == False:
-        input_text = "Please chose your position as an int, player " + symbols[current_player]
+        input_text = "Please chose your position as an int, player " + symbols[current_player] + " "
         game_input = int(input(input_text))
         change_happened = changeStatus(game_input-1, current_player)
 
@@ -45,11 +62,20 @@ def main():
     global current_player
     current_player = 1
     setUpStatus()
-    while game_has_ended == False:
-        getGameInput()
-        switchCurrentPlayer()
-        game_has_ended = checkStatus()
-        showGameBoard()
+    global player_amount
+    player_amount = int(input("How many players are playing? (1 or 2)"))
+    if player_amount == 1:
+        while game_has_ended == False:
+            getGameInput()
+            algorithm_move()
+            game_has_ended = checkStatus()
+            showGameBoard()
+    else:
+        while game_has_ended == False:
+            getGameInput()
+            switchCurrentPlayer()
+            game_has_ended = checkStatus()
+            showGameBoard()
     showGameResult()
 
 def setUpStatus():
