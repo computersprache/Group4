@@ -2,6 +2,7 @@ current_player = 0
 game_status = []
 symbols = [" ", "X", "O"]
 win_conditions = [(0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6)]
+
 winner = "no player"
 
 def changeStatus(pos, player_number):
@@ -11,8 +12,26 @@ def changeStatus(pos, player_number):
     return False
 
 def checkStatus():
-    for win in win_conditions:
-        if  
+    if(checkWin()):
+        return True
+    if(checkDraw()):
+        return True
+    return False
+        
+def checkWin():
+    global winner
+    for condition in win_conditions:
+        if game_status[condition[0]] == game_status[condition[1]] == game_status[condition[2]] != 0:
+            winner = "player " + symbols[game_status[condition[0]]]
+            return True
+    return False
+
+def checkDraw():
+    for i in game_status:
+        if i == 0:
+            return False
+    return True
+
 
 def getGameInput():
     change_happened = False
@@ -49,7 +68,7 @@ def showGameBoard():
 
 def showGameResult():
     global winner
-    print("Game has ended," + winner + " wins!")   
+    print("Game has ended, " + winner + " wins!")   
 
 def switchCurrentPlayer():
     global current_player
