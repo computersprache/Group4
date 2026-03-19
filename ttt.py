@@ -1,6 +1,7 @@
 current_player = 0
 game_status = []
 symbols = [" ", "X", "O"]
+win_conditions = []
 
 def changeStatus(pos, player_number):
     if game_status[pos] == 0:
@@ -12,10 +13,11 @@ def checkStatus():
     pass
 
 def getGameInput():
-    change_happend = False
-    while change_happend == False:
+    change_happened = False
+    while change_happened == False:
         game_input = int(input("Please chose your position as an int, player %s", symbols[current_player]))
-        change_happend = changeStatus(game_input-1, current_player)
+        change_happened = changeStatus(game_input-1, current_player)
+    checkStatus()
     switchCurrentPlayer()
 
 def setUpGame():
