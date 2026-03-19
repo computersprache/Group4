@@ -17,11 +17,14 @@ def getGameInput():
     while change_happened == False:
         game_input = int(input("Please chose your position as an int, player %s", symbols[current_player]))
         change_happened = changeStatus(game_input-1, current_player)
-    checkStatus()
-    switchCurrentPlayer()
 
-def setUpGame():
-    pass
+def main():
+    game_has_ended = False
+    while game_has_ended == False:
+        getGameInput()
+        switchCurrentPlayer()
+        game_has_ended = checkStatus()
+    showGameResult()
 
 def setUpStatus():
     game_status = []
@@ -35,6 +38,9 @@ def showGameBoard():
         print(game_status[6] + game_status[7] + game_status[8])
     else:
         print("Error - game_status has not enough values to show.")
+
+def showGameResult():
+    pass
 
 def switchCurrentPlayer():
     if current_player == 1:
